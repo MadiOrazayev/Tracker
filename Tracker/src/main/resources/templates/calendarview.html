@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="main_layout.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Monthly</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+</head>
+<body>
+<div layout:fragment="main_content">
+    <div class="container">
+        <h3 class="text-dark">Welcome <span th:text="${#authentication.principal.username}"
+                                                      id="username"></span></h3>
+        <a class="link active" th:href="@{'/profile'}">Daily</a>
+
+        <div class="input-group mb-3 mt-3">
+            <input type="date" style="width: 10%;" class="form-control" id="date">
+            <input type="text" style="width: 40%;" class="form-control" placeholder="Expense" id="costname">
+            <input type="number" style="width: 25%;" class="form-control" placeholder="Amount" aria-describedby="button" id="cost">
+            <button onclick="addRecord()" style="width: 25%;" class="btn btn-outline-secondary btn-success text-dark" type="button" id="button">Add</button>
+        </div>
+        <div style="height: 500px; overflow: auto">
+            <table class="table text-dark">
+                <thead>
+                <tr>
+                    <th style="text-align: center" scope="col" class="col-1">Mo</th>
+                    <th style="text-align: center" scope="col" class="col-1">Tu</th>
+                    <th style="text-align: center" scope="col" class="col-1">We</th>
+                    <th style="text-align: center" scope="col" class="col-1">Th</th>
+                    <th style="text-align: center" scope="col" class="col-1">Fr</th>
+                    <th style="text-align: center" scope="col" class="col-1">Sa</th>
+                    <th style="text-align: center" scope="col" class="col-1">Su</th>
+                    <th style="text-align: center" scope="col" class="col-2">Total</th>
+                </tr>
+                </thead>
+                <tbody id="table">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.getElementById('date').valueAsDate = new Date();
+        window.addEventListener("load", getMonth)
+        document.getElementById("date").addEventListener('input', getMonth)
+        function getMonth() {
+            const request = new XMLHttpRequest();
+            request.open("POST", "/getmonth", true);
+            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            request.send(JSON.stringify({
+                "date": date.value,
+                "username": username.innerText,
+            }));
+            request.onreadystatechange = function () {
+                if (request.readyState === request.DONE) {
+                    if (request.status === 200) {
+                        let reply = JSON.parse(request.responseText)
+                        let sum=0
+                        table.innerHTML = ""
+                        for( i=0; i<5;i++){
+                            const d = []
+                            for (j=0;j<8;j++){
+                                d[j]=""
+                                if(reply.cost[i][j]!=0){
+                                    d[j]="<span style='color:blue;'>" + reply.day[i][j] + "</span><br/>" + reply.cost[i][j]
+                                }
+                            }
+                            table.innerHTML += `<tr><td style="text-align: center">`+d[0]+`</td>
+                            <td style="text-align: center">`+d[1]+`</td>
+                            <td style="text-align: center">`+d[2]+`</td>
+                            <td style="text-align: center">`+d[3]+`</td>
+                            <td style="text-align: center">`+d[4]+`</td>
+                            <td style="text-align: center">`+d[5]+`</td>
+                            <td style="text-align: center">`+d[6]+`</td>
+                            <td style="text-align: center"> ${reply.cost[i][7]} </td></tr>`
+                            sum+=reply.cost[i][7]
+                        }
+                        table.innerHTML += `<tr style="text-align: center"><td><strong>Total</strong></td>
+                            <td style="text-align: center"></td>
+                            <td style="text-align: center"></td>
+                            <td style="text-align: center"></td>
+                            <td style="text-align: center"></td>
+                            <td style="text-align: center"></td>
+                            <td style="text-align: center"></td>
+                            <td style="text-align: center"> <strong>`+sum+`</strong> </td></tr>`
+                    }
+                }
+            }
+        }
+
+        function addRecord() {
+                const request = new XMLHttpRequest();
+                request.open("POST", "/addrecord", true);
+                request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                request.send(JSON.stringify({
+                    "date": date.value,
+                    "username": username.innerText,
+                    "costname": costname.value,
+                    "cost": cost.value
+                }));
+                request.onreadystatechange = function () {
+                    if (request.readyState === request.DONE) {
+                        if (request.status === 200) {
+                            getMonth()
+                            costname.value=""
+                            cost.value=""
+                        }
+                    }
+                }
+        }
+    </script>
+</div>
+</body>
+</html>
