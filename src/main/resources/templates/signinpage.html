@@ -9,13 +9,13 @@
 <body>
 <div layout:fragment="main_content">
     <div class="container">
-        <h3 class="text-dark">Login</h3>
+        <h1 class="text-dark mb-3">Login</h1>
         <form th:action="@{'/to-enter'}" method="post">
             <div class="input-group">
-                <input type="text" class="form-control" name="username" id="username" placeholder="Name">
-                <input type="text" class="form-control" name="password" id="password" placeholder="Password">
-                <button class="btn btn-outline-secondary">Enter</button>
-                <a class="btn btn-outline-secondary" onclick="register()">Register</a>
+                <input type="text" class="form-control fs-2" name="username" id="username" placeholder="Name">
+                <input type="text" class="form-control fs-2" name="password" id="password" placeholder="Password">
+                <button class="btn btn-outline-secondary fs-2">Enter</button>
+                <a class="btn btn-outline-secondary fs-2" onclick="register()">Register</a>
             </div>
     </form>
     </div>

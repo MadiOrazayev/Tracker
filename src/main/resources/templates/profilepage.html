@@ -9,15 +9,15 @@
 <body>
 <div layout:fragment="main_content">
     <div class="container-fluid">
-        <h3 class="text-dark mb-3">Welcome <span th:text="${#authentication.principal.username}"
-                                                      id="username"></span></h3>
+        <h2 class="text-dark mb-3">Welcome <span th:text="${#authentication.principal.username}"
+                                                      id="username"></span></h2>
         <a class="link active" th:href="@{'/calendarview'}">Monthly</a>
 
         <div class="input-group mb-3 mt-3">
-            <input type="date" style="width: 10%;" class="form-control" id="date">
-            <input type="text" style="width: 40%;" class="form-control" placeholder="Expense" id="costname">
-            <input type="number" style="width: 25%;" class="form-control" placeholder="Amount" aria-describedby="button" id="cost">
-            <button onclick="addRecord()" style="width: 25%;" class="btn btn-outline-secondary btn-success text-dark" type="button" id="button">Add</button>
+            <input type="date" style="width: 20%;" class="form-control fs-2" id="date">
+            <input type="text" style="width: 40%;" class="form-control  fs-2" placeholder="Expense" id="costname">
+            <input type="number" style="width: 25%;" class="form-control  fs-2" placeholder="Amount" aria-describedby="button" id="cost">
+            <button onclick="addRecord()" style="width: 15%;" class="btn btn-outline-secondary btn-success text-dark fs-2" type="button" id="button">Add</button>
         </div>
         <div style="height: 500px; overflow: auto">
             <table class="table text-dark">
