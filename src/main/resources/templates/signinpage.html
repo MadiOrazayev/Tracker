@@ -11,13 +11,33 @@
     <div class="container">
         <h3 class="text-dark">Login</h3>
         <form th:action="@{'/to-enter'}" method="post">
-            <input type="text" name="username">
-            <input type="text" name="password">
-            <button>Enter</button>
-        </form>
+            <div class="input-group">
+                <input type="text" class="form-control" name="username" id="username" placeholder="Name">
+                <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+                <button class="btn btn-outline-secondary">Enter</button>
+                <a class="btn btn-outline-secondary" onclick="register()">Register</a>
+            </div>
+    </form>
     </div>
     <script type="text/javascript">
-
+        function register() {
+            if (username.value != "" && password.value != "") {
+                const request = new XMLHttpRequest();
+                request.open("POST", "/register", true);
+                request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                request.send(JSON.stringify({
+                    "username": username.value,
+                    "password": password.value
+                }));
+                request.onreadystatechange = function () {
+                    if (request.readyState === request.DONE) {
+                        if (request.status === 200) {
+                            alert(request.responseText)
+                        }
+                    }
+                }
+            }
+        }
     </script>
 </div>
 </body>

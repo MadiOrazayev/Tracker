@@ -33,7 +33,7 @@ public class SecurityConfig {
         http.formLogin()
                 .loginPage("/sign-in")
                 .loginProcessingUrl("/to-enter")
-                .failureUrl("/")
+                .failureUrl("/sign-in")
                 .defaultSuccessUrl("/profile")
                 .usernameParameter("username")
                 .passwordParameter("password");

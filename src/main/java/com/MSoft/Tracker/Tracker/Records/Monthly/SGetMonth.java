@@ -10,7 +10,6 @@ import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
