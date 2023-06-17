@@ -15,6 +15,7 @@ public class SGetRecords {
         List<DTORecords> DTOrecords=new ArrayList<>();
         for(MRecords Mrecord:records){
             DTORecords DTOrecord=new DTORecords();
+            DTOrecord.setId(Mrecord.getId());
             DTOrecord.setDate(Mrecord.getDate());
             DTOrecord.setCostname(Mrecord.getCostname());
             DTOrecord.setCost(Mrecord.getCost());

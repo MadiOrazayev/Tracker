@@ -7,6 +7,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class DTORecords {
+    Long id;
     String username;
     String costname;
     int cost;

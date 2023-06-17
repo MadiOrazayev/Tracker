@@ -19,13 +19,14 @@
             <input type="number" style="width: 25%;" class="form-control  fs-2" placeholder="Amount" aria-describedby="button" id="cost">
             <button onclick="addRecord()" style="width: 15%;" class="btn btn-outline-secondary btn-success text-dark fs-2" type="button" id="button">Add</button>
         </div>
-        <div style="height: 500px; overflow: auto">
+        <div style="height: 1000px; overflow: auto">
             <table class="table text-dark">
                 <thead>
                 <tr>
                     <th scope="col" class="col-2">Date</th>
-                    <th scope="col" class="col-4">Expenses</th>
+                    <th scope="col" class="col-7">Expenses</th>
                     <th scope="col" class="col-2">Amount</th>
+                    <th scope="col" class="col-1"></th>
                 </tr>
                 </thead>
                 <tbody id="table">
@@ -54,7 +55,8 @@
                         reply.forEach((e) => {
                             table.innerHTML += `<tr><td> ${e.date} </td>
                                                 <td> ${e.costname} </td>
-                                                <td> ${e.cost} </td></tr>`
+                                                <td> ${e.cost} </td>
+                                                <td><button onclick="delRecord(${e.id})" type="button" style="width: auto;" class="btn-close" aria-label="Close"></button></td></tr>`
                             sum+=e.cost
                         })
                         table.innerHTML += `<tr><td><strong>Total</strong></td>
@@ -84,6 +86,19 @@
                         }
                     }
                 }
+        }
+        function delRecord(id) {
+            const request = new XMLHttpRequest();
+            request.open("POST", "/delrecord", true);
+            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            request.send(id);
+            request.onreadystatechange = function () {
+                if (request.readyState === request.DONE) {
+                    if (request.status === 200) {
+                        getRecords()
+                    }
+                }
+            }
         }
     </script>
 </div>
