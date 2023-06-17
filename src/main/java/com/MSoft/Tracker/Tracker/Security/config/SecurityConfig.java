@@ -33,13 +33,13 @@ public class SecurityConfig {
         http.formLogin()
                 .loginPage("/sign-in")
                 .loginProcessingUrl("/to-enter")
-                .failureUrl("/sign-in")
+                .failureUrl("/")
                 .defaultSuccessUrl("/profile")
                 .usernameParameter("username")
                 .passwordParameter("password");
         http.logout()
                 .logoutUrl("/to-exit")
-                .logoutSuccessUrl("/sign-in");
+                .logoutSuccessUrl("/");
         http.csrf().disable();
         return http.build();
 
