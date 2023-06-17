@@ -10,7 +10,7 @@
 <div layout:fragment="main_content">
     <div class="container-fluid">
         <h3 class="text-dark">Welcome <span th:text="${#authentication.principal.username}"
-                                                      id="username"></span></h3>
+                                                      id="username"></span><a class="link active" th:href="@{'/to-exit'}">Exit</a></h3>
         <a class="link active" th:href="@{'/profile'}">Daily</a>
 
         <div class="input-group mb-3 mt-3">

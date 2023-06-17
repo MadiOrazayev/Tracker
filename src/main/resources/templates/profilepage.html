@@ -9,8 +9,8 @@
 <body>
 <div layout:fragment="main_content">
     <div class="container-fluid">
-        <h2 class="text-dark mb-3">Welcome <span th:text="${#authentication.principal.username}"
-                                                      id="username"></span></h2>
+        <h2 class="text-dark mb-3">Welcome <span th:text="${#authentication.principal.username} "
+                                                      id="username"></span><a class="link active" th:href="@{'/to-exit'}">Exit</a></h2>
         <a class="link active" th:href="@{'/calendarview'}">Monthly</a>
 
         <div class="input-group mb-3 mt-3">
